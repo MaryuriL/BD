@@ -1,18 +1,14 @@
-DROP schema reto_4;
 CREATE SCHEMA reto_4;
 USE reto_4;
-
 CREATE TABLE `tipo` (
   `idtipo` INT NOT NULL,
   `nombre` VARCHAR(45) NOT NULL,
   PRIMARY KEY (idtipo)
-  );
-  
+  );  
 INSERT INTO tipo (idtipo, nombre) VALUES ('1', 'Preventivo');
 INSERT INTO tipo (idtipo, nombre) VALUES ('2', 'Correctivo');
 INSERT INTO tipo (idtipo, nombre) VALUES ('3', 'Interno');
 INSERT INTO tipo (idtipo, nombre) VALUES ('4', 'Externo');
-
 CREATE TABLE `mantenimiento` (
 	idmantenimiento INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 	nombre VARCHAR(60) NOT NULL,
@@ -21,7 +17,6 @@ CREATE TABLE `mantenimiento` (
 	FOREIGN KEY (idtipo)
         REFERENCES tipo(idtipo)
   );
-
 INSERT INTO mantenimiento (nombre, minutosbase, idtipo) VALUES ('Ajustes de maquinaria y equipos', '120', '1');
 INSERT INTO mantenimiento (nombre, minutosbase, idtipo) VALUES ('Limpieza','130','2'); -- error
 INSERT INTO mantenimiento (nombre, minutosbase, idtipo) VALUES ('Análisis de las averías', '90','2');
@@ -32,18 +27,16 @@ INSERT INTO mantenimiento (nombre, minutosbase, idtipo) VALUES ('Desmonte bandas
 INSERT INTO mantenimiento (nombre, minutosbase, idtipo) VALUES ('Calibración máquinas', '180','4');
 INSERT INTO mantenimiento (nombre, minutosbase, idtipo) VALUES ('Montaje eléctrico', '160','4');
 INSERT INTO mantenimiento (nombre, minutosbase, idtipo) VALUES ('Visita onPremise', '320','4');
-
 CREATE TABLE `area` (
   `idarea` INT NOT NULL AUTO_INCREMENT,
   `nombre` VARCHAR(45) NOT NULL,
   `Númerodesecciones` INT NOT NULL,
-  PRIMARY KEY (`idarea`));
-  
+  PRIMARY KEY (`idarea`)
+  );
 INSERT INTO area (nombre, Númerodesecciones)  VALUES ('Acabados', '2');
 INSERT INTO area (nombre, Númerodesecciones)  VALUES ('Montaje', '5');
 INSERT INTO area (nombre, Númerodesecciones)  VALUES ('Perfilado', '8');
 INSERT INTO area (nombre, Númerodesecciones)  VALUES ('Producción', '2');
-
 CREATE TABLE `ejecutar` (
 	idarea INT NOT NULL, 
 	idmantenimiento INT NOT NULL,
@@ -51,8 +44,7 @@ CREATE TABLE `ejecutar` (
         REFERENCES mantenimiento(idmantenimiento),
     FOREIGN KEY (idarea)
         REFERENCES area(idarea)
-);
-  
+);  
 INSERT INTO ejecutar (idmantenimiento, idarea) VALUES ('1', '2');
 INSERT INTO ejecutar (idmantenimiento, idarea) VALUES ('1', '2');  
 INSERT INTO ejecutar (idmantenimiento, idarea) VALUES ('10', '4');                              
@@ -68,20 +60,18 @@ INSERT INTO ejecutar (idmantenimiento, idarea) VALUES ('8', '2');
 INSERT INTO ejecutar (idmantenimiento, idarea) VALUES ('3', '4');                   
 INSERT INTO ejecutar (idmantenimiento, idarea) VALUES ('5', '1');          
 INSERT INTO ejecutar (idmantenimiento, idarea) VALUES ('6', '3');
-
 CREATE TABLE `empleado` (
   `idempleado` INT NOT NULL AUTO_INCREMENT,
   `Nombre` VARCHAR(45) NOT NULL,
   `Activo` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`idempleado`));
-
+  PRIMARY KEY (`idempleado`)
+  );
 INSERT INTO empleado (Nombre, Activo) VALUES ('Juan martínez', 'Si');
 INSERT INTO empleado (Nombre, Activo) VALUES ('Pedro Polanía', 'Si');
 INSERT INTO empleado (Nombre, Activo) VALUES ('Eduardo Domínguez', 'No');
 INSERT INTO empleado (Nombre, Activo) VALUES ('Teresa Díaz', 'Sí');
 INSERT INTO empleado (Nombre, Activo) VALUES ('Diego García', 'No');
 INSERT INTO empleado (Nombre, Activo) VALUES ('Camilo Hurtado', 'Sí');
-
   CREATE TABLE `registro` (
 	idregistro INT NOT NULL AUTO_INCREMENT,
 	fecha DATETIME NOT NULL,
@@ -91,8 +81,8 @@ INSERT INTO empleado (Nombre, Activo) VALUES ('Camilo Hurtado', 'Sí');
         REFERENCES mantenimiento(idmantenimiento),
 	FOREIGN KEY (idempleado)
         REFERENCES empleado(idempleado) ON DELETE CASCADE,
-  PRIMARY KEY (`idregistro`));
-  
+  PRIMARY KEY (`idregistro`)
+  );
 INSERT INTO registro (idmantenimiento, idempleado, fecha) VALUES ('1', '1', '2019-11-29 00:00:00');
 INSERT INTO registro (idmantenimiento, idempleado, fecha) VALUES ('3', '3', '2021-06-01 00:00:00');
 INSERT INTO registro (idmantenimiento, idempleado, fecha) VALUES ('4', '6', '2013-08-10 00:00:00');
@@ -105,33 +95,23 @@ INSERT INTO registro (idmantenimiento, idempleado, fecha) VALUES ('10', '2', '20
 INSERT INTO registro (idmantenimiento, idempleado, fecha) VALUES ('9', '2', '2014-05-19 00:00:00');
 INSERT INTO registro (idmantenimiento, idempleado, fecha) VALUES ('1', '5', '2019-08-17 00:00:00');
 INSERT INTO registro (idmantenimiento, idempleado, fecha) VALUES ('2', '4', '2021-07-12 00:00:00');
-  
--- el script de actualizaciones
--- 2.2   Actualización de registros:
---          Actualizar a 750 los minutos base del mantenimiento: Reparación de equipos
 UPDATE mantenimiento
 SET minutosbase = '750'
 WHERE idmantenimiento = '5';
---          Actualizar el tipo (de mantenimiento) del mantenimiento: ‘Ajustes de maquinaria y equipos’ a Correctivo
 UPDATE mantenimiento
 SET idtipo = '2'
 WHERE idmantenimiento = '1';
---          Modificar el registro de ejecución (ejecutar) del mantenimiento: ‘Montaje eléctrico’ para que quede asociado al área: Acabados
 UPDATE ejecutar
 SET idarea = '2'
 WHERE idmantenimiento = '9';
---          Eliminar los registros de mantenimiento del empleado:  Camilo Hurtado.
 DELETE FROM empleado 
 WHERE idempleado='6';
--- 2.3   Consulta de registros:
---          Consultar de forma descendente, el nombre de las áreas por su número de secciones.
 SELECT 'query 1';
-SELECT nombre, Númerodesecciones
+SELECT nombre
 FROM area
 ORDER BY Númerodesecciones DESC;
---          Consultar los nombres de los mantenimientos, donde su tipo de mantenimiento corresponda a: ‘Correctivo’ y se hayan ejecutado en el área de: ‘Acabados’. Mostrarlos de forma descendente.
 SELECT 'query 2';
-SELECT * FROM mantenimiento
+SELECT mantenimiento.nombre FROM mantenimiento
 INNER JOIN ejecutar
 ON mantenimiento.idmantenimiento = ejecutar.idmantenimiento
 INNER JOIN  area
@@ -139,21 +119,15 @@ ON  ejecutar.idarea = area.idarea
 INNER JOIN tipo
 ON mantenimiento.idtipo = tipo.idtipo
 WHERE tipo.nombre = 'Correctivo' AND area.nombre = 'Acabados'
-ORDER BY mantenimiento.nombre DESC;
-
---          Consultar por fecha, el nombre del suministro y la fecha de realización de los registros de mantenimiento realizadas por el empleado " Eduardo Domínguez " y ordene por la fecha de mayor a menor.
+ORDER BY mantenimiento.nombre;
 SELECT 'query 3';
-SELECT * from empleado
+SELECT mantenimiento.nombre, registro.fecha, empleado.nombre from empleado
 INNER JOIN registro
 on empleado.idempleado = registro.idempleado
 INNER JOIN mantenimiento
 on registro.idmantenimiento = mantenimiento.idmantenimiento
 WHERE empleado.nombre ='Eduardo Domínguez'
 ORDER BY registro.fecha DESC;
-
-
---          Visualizar ordenada y alfabéticamente, los nombres de las áreas que ejecutan mantenimientos de empleados que no están activos. No mostrar valores repetidos.
-
 SELECT 'query 4';
 SELECT DISTINCT area.nombre FROM ejecutar
 INNER JOIN area

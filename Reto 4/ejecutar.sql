@@ -1,4 +1,3 @@
-DROP TABLE IF  EXISTS ejecutar;
 CREATE TABLE `ejecutar` (
 	idarea INT NOT NULL, 
 	idmantenimiento INT NOT NULL,
@@ -6,8 +5,7 @@ CREATE TABLE `ejecutar` (
         REFERENCES mantenimiento(idmantenimiento),
     FOREIGN KEY (idarea)
         REFERENCES area(idarea)
-);
-  
+);  
 INSERT INTO ejecutar (idmantenimiento, idarea) VALUES ('1', '2');
 INSERT INTO ejecutar (idmantenimiento, idarea) VALUES ('1', '2');  
 INSERT INTO ejecutar (idmantenimiento, idarea) VALUES ('10', '4');                              
@@ -17,7 +15,7 @@ INSERT INTO ejecutar (idmantenimiento, idarea) VALUES ('7', '4');
 INSERT INTO ejecutar (idmantenimiento, idarea) VALUES ('6', '1');               
 INSERT INTO ejecutar (idmantenimiento, idarea) VALUES ('4', '4');                                        
 INSERT INTO ejecutar (idmantenimiento, idarea) VALUES ('4', '2');                           
-INSERT INTO ejecutar (idmantenimiento, idarea) VALUES ('2', '3');                                                 
+INSERT INTO ejecutar (idmantenimiento, idarea) VALUES ('2', '1'); -- error                                              
 INSERT INTO ejecutar (idmantenimiento, idarea) VALUES ('2', '4');                                                             
 INSERT INTO ejecutar (idmantenimiento, idarea) VALUES ('8', '2');                                         
 INSERT INTO ejecutar (idmantenimiento, idarea) VALUES ('3', '4');                   

@@ -8,7 +8,6 @@ CREATE TABLE `registro` (
 	FOREIGN KEY (idempleado)
         REFERENCES empleado(idempleado) ON DELETE CASCADE,
   PRIMARY KEY (`idregistro`));
-  
 INSERT INTO registro (idmantenimiento, idempleado, fecha) VALUES ('1', '1', '2019-11-29 00:00:00');
 INSERT INTO registro (idmantenimiento, idempleado, fecha) VALUES ('3', '3', '2021-06-01 00:00:00');
 INSERT INTO registro (idmantenimiento, idempleado, fecha) VALUES ('4', '6', '2013-08-10 00:00:00');

@@ -3,7 +3,6 @@ CREATE TABLE `area` (
   `nombre` VARCHAR(45) NOT NULL,
   `Númerodesecciones` INT NOT NULL,
   PRIMARY KEY (`idarea`));
-  
 INSERT INTO area (nombre, Númerodesecciones)  VALUES ('Acabados', '2');
 INSERT INTO area (nombre, Númerodesecciones)  VALUES ('Montaje', '5');
 INSERT INTO area (nombre, Númerodesecciones)  VALUES ('Perfilado', '8');
