@@ -112,6 +112,13 @@ INSERT INTO registro (idmantenimiento, idempleado, fecha) VALUES ('9', '2', '201
 INSERT INTO registro (idmantenimiento, idempleado, fecha) VALUES ('1', '5', '2019-08-17 00:00:00');
 INSERT INTO registro (idmantenimiento, idempleado, fecha) VALUES ('2', '4', '2021-07-12 00:00:00');
   
+-- el script de actualizaciones
+  
+
+
+-- último el de consultas
+ 
+ 
 SELECT 'query 4';
 SELECT DISTINCT area.nombre FROM ejecutar
 INNER JOIN area
