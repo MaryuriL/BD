@@ -1,12 +1,13 @@
+DROP schema reto_4;
 CREATE SCHEMA reto_4;
 USE reto_4;
 
-DROP TABLE IF  EXISTS tipo;
-DROP TABLE IF  EXISTS mantenimiento;
-DROP TABLE IF  EXISTS area;
-DROP TABLE IF  EXISTS ejecutar;
-DROP TABLE IF  EXISTS empleado;
-DROP TABLE IF  EXISTS registro;
+-- DROP TABLE IF  EXISTS tipo;
+-- DROP TABLE IF  EXISTS mantenimiento;
+-- DROP TABLE IF  EXISTS area;
+-- DROP TABLE IF  EXISTS ejecutar;
+-- DROP TABLE IF  EXISTS empleado;
+-- DROP TABLE IF  EXISTS registro;
 
 CREATE TABLE `tipo` (
   `idtipo` INT NOT NULL,
@@ -114,11 +115,44 @@ INSERT INTO registro (idmantenimiento, idempleado, fecha) VALUES ('2', '4', '202
   
 -- el script de actualizaciones
   
+-- 2.2   Actualización de registros:
+
+--          Actualizar a 750 los minutos base del mantenimiento: Reparación de equipos
 
 
--- último el de consultas
- 
- 
+--          Actualizar el tipo (de mantenimiento) del mantenimiento: ‘Ajustes de maquinaria y equipos’ a Correctivo
+
+--          Modificar el registro de ejecución (ejecutar) del mantenimiento: ‘Montaje eléctrico’ para que quede asociado al área: Acabados
+
+--          Eliminar los registros de mantenimiento del empleado:  Camilo Hurtado.
+
+
+
+-- 2.3   Consulta de registros:
+
+--          Consultar de forma descendente, el nombre de las áreas por su número de secciones.
+SELECT 'query 1';
+SELECT
+	nombre, 
+    Númerodesecciones
+FROM
+	area
+ORDER BY
+	Númerodesecciones DESC;
+
+
+--          Consultar los nombres de los mantenimientos, donde su tipo de mantenimiento corresponda a: ‘Correctivo’ y se hayan ejecutado en el área de: ‘Acabados’. Mostrarlos de forma descendente.
+SELECT 'query 2';
+SELECT
+	*
+FROM
+	mantenimiento
+LEFT JOIN tipo
+ON mantenimiento.idtipo = tipo.idtipo;
+--          Consultar por fecha, el nombre del suministro y la fecha de realización de los registros de mantenimiento realizadas por el empleado " Eduardo Domínguez " y ordene por la fecha de mayor a menor.
+
+--          Visualizar ordenada y alfabéticamente, los nombres de las áreas que ejecutan mantenimientos de empleados que no están activos. No mostrar valores repetidos.
+
 SELECT 'query 4';
 SELECT DISTINCT area.nombre FROM ejecutar
 INNER JOIN area
