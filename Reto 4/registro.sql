@@ -1,4 +1,4 @@
-  CREATE TABLE `registro` (
+CREATE TABLE `registro` (
 	idregistro INT NOT NULL AUTO_INCREMENT,
 	fecha DATETIME NOT NULL,
     idmantenimiento INT NOT NULL, 
@@ -6,7 +6,7 @@
     FOREIGN KEY (idmantenimiento)
         REFERENCES mantenimiento(idmantenimiento),
 	FOREIGN KEY (idempleado)
-        REFERENCES empleado(idempleado),
+        REFERENCES empleado(idempleado) ON DELETE CASCADE,
   PRIMARY KEY (`idregistro`));
   
 INSERT INTO registro (idmantenimiento, idempleado, fecha) VALUES ('1', '1', '2019-11-29 00:00:00');
