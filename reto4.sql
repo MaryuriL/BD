@@ -53,3 +53,17 @@ CREATE TABLE `empleado` (
   `Empleado` VARCHAR(45) NOT NULL,
   `Fecha` DATETIME NOT NULL,
   PRIMARY KEY (`idregistro`));
+  
+SELECT 'query 4';
+SELECT DISTINCT area.nombre
+FROM ejecutar
+INNER JOIN area
+ON ejecutar.idarea = area.idarea
+INNER JOIN mantenimiento
+ON ejecutar.idmantenimiento = mantenimiento.idmantenimiento
+INNER JOIN registro
+ON mantenimiento.idmantenimiento = registro.idmantenimiento
+INNER JOIN empleado
+ON registro.idempleado = empleado.idempleado
+WHERE empleado.esactivo = 'No'
+ORDER BY area.nombre;
