@@ -1,4 +1,4 @@
--- DROP schema reto_4;
+DROP schema reto_4;
 CREATE SCHEMA reto_4;
 USE reto_4;
 
@@ -23,12 +23,12 @@ CREATE TABLE `mantenimiento` (
   );
 
 INSERT INTO mantenimiento (nombre, minutosbase, idtipo) VALUES ('Ajustes de maquinaria y equipos', '120', '1');
-INSERT INTO mantenimiento (nombre, minutosbase, idtipo) VALUES ('Limpieza','130','1');
+INSERT INTO mantenimiento (nombre, minutosbase, idtipo) VALUES ('Limpieza','130','2'); -- error
 INSERT INTO mantenimiento (nombre, minutosbase, idtipo) VALUES ('Análisis de las averías', '90','2');
 INSERT INTO mantenimiento (nombre, minutosbase, idtipo) VALUES ('Cambio de piezas', '240','2');
 INSERT INTO mantenimiento (nombre, minutosbase, idtipo) VALUES ('Reparación de equipos', '90','3');
 INSERT INTO mantenimiento (nombre, minutosbase, idtipo) VALUES ('Instalación componentes', '200','3');
-INSERT INTO mantenimiento (nombre, minutosbase, idtipo) VALUES ('Desmonte bandas', '400','3');
+INSERT INTO mantenimiento (nombre, minutosbase, idtipo) VALUES ('Desmonte bandas', '400','2'); -- error
 INSERT INTO mantenimiento (nombre, minutosbase, idtipo) VALUES ('Calibración máquinas', '180','4');
 INSERT INTO mantenimiento (nombre, minutosbase, idtipo) VALUES ('Montaje eléctrico', '160','4');
 INSERT INTO mantenimiento (nombre, minutosbase, idtipo) VALUES ('Visita onPremise', '320','4');
@@ -62,7 +62,7 @@ INSERT INTO ejecutar (idmantenimiento, idarea) VALUES ('7', '4');
 INSERT INTO ejecutar (idmantenimiento, idarea) VALUES ('6', '1');               
 INSERT INTO ejecutar (idmantenimiento, idarea) VALUES ('4', '4');                                        
 INSERT INTO ejecutar (idmantenimiento, idarea) VALUES ('4', '2');                           
-INSERT INTO ejecutar (idmantenimiento, idarea) VALUES ('2', '3');                                                 
+INSERT INTO ejecutar (idmantenimiento, idarea) VALUES ('2', '1'); -- error                                              
 INSERT INTO ejecutar (idmantenimiento, idarea) VALUES ('2', '4');                                                             
 INSERT INTO ejecutar (idmantenimiento, idarea) VALUES ('8', '2');                                         
 INSERT INTO ejecutar (idmantenimiento, idarea) VALUES ('3', '4');                   
@@ -125,7 +125,6 @@ DELETE FROM empleado
 WHERE idempleado='6';
 -- 2.3   Consulta de registros:
 --          Consultar de forma descendente, el nombre de las áreas por su número de secciones.
---        Query in descending order, the name of the areas by their number of sections.
 SELECT 'query 1';
 SELECT nombre, Númerodesecciones
 FROM area
